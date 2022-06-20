@@ -1,9 +1,15 @@
 const FIREBASEKEY = 'https://react-http-91fc5-default-rtdb.europe-west1.firebasedatabase.app'
 
 export const addNewDishRequest = async (dishData) => {
-    const response = await fetch(`${FIREBASEKEY}/dishes.json`, {
+    const obj = {
+        title: dishData.title,
+        description: dishData.description,
+        price: dishData.price
+    }
+
+    const response = await fetch(`${FIREBASEKEY}/dishes${dishData.url}.json`, {
         method: 'POST',
-        body: JSON.stringify(dishData),
+        body: JSON.stringify(obj),
         headers: {
             'Content-Type': 'application/json'
         }
@@ -18,8 +24,8 @@ export const addNewDishRequest = async (dishData) => {
     return null
 }
 
-export const renderAllDishes = async () => {
-    const response = await fetch(`${FIREBASEKEY}/dishes.json`)
+export const renderAllDishes = async (url) => {
+    const response = await fetch(`${FIREBASEKEY}/dishes${url}.json`)
     const data = await response.json()
 
     if (!response.ok) {
@@ -39,4 +45,15 @@ export const renderAllDishes = async () => {
 
 
     return transformatedDishes
+}
+
+export const getSingleDishDetail = async (url) => {
+    const response = await fetch(`${FIREBASEKEY}/dishes${url}.json`)
+    const data = await response.json()
+
+    if (!response.ok) {
+        throw new Error(data.error || 'something went wrong...')
+    }
+
+    return data
 }
