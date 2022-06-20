@@ -20,6 +20,9 @@ function App() {
 					<Route path='/' exact>
 						<Redirect to='/landing-page' />
 					</Route>
+					<Route path='/react-practice-router' exact>
+						<Redirect to='/landing-page' />
+					</Route>
 					<Route path="/menu" exact>
 						<Menu />
 					</Route>
